@@ -5,6 +5,7 @@ import os
 import re
 import requests
 import json
+import sys
 BEARER = os.environ['BEARER']
 ACCOUNT_IDENTIFIER = os.environ['ACCOUNT_IDENTIFIER']
 NAMESPACE_IDENTIFIER = os.environ['NAMESPACE_IDENTIFIER']
@@ -50,9 +51,9 @@ except Exception as e:
 
 
 data = data.decode('utf-8') # 解码成普通字符串
-system_value = re.search(r"b'(.+)'", data)
-if system_value == updateid:
-    exit()
+
+if data == updateid:
+    sys.exit(1)
 output_file = os.path.join(os.getcwd(), 'updateId.txt')
 with open(output_file, 'w') as f:
     f.write(updateid)
