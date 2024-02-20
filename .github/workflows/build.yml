@@ -44,8 +44,6 @@ jobs:
     - name: Build
       run: python Build.py
 
-
-
     - name: Mount
       run: python Mount.py
 
@@ -62,3 +60,4 @@ jobs:
         REGION_NAME: ${{ secrets.REGION_NAME }}
         BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+        ESD_NAME: ${{ secrets.ESD_NAME }}
