@@ -28,6 +28,7 @@ Cloudlare Dashboard中侧边栏的R2选项卡，点击创建存储桶，取个�
 - **NAMESPACE_IDENTIFIER**：您的命名空间标识符。
 - **REGION_NAME**：您对象存储的区域名称。
 - **S3_ENDPOINT**：您S3兼容对象存储服务的终端点。
+- **ESD_NAME**:ESD镜像名称
 
 确保保持这些机密信息的机密性，不要公开它们。
 

@@ -1,0 +1,8 @@
+requests==2.31.0
+configparser==6.0.0
+patool
+bs4
+psycopg2
+boto3
+wmi
+pywin32

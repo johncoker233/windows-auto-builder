@@ -1,0 +1,64 @@
+name: Build Windows
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # 每隔6小时运行一次
+
+jobs:
+  build:
+    runs-on: windows-2019  # 使用 Windows 镜像
+    
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'  # 安装 Python 3.10
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Check
+      run: python CheckVerison.py
+      env:
+        NAMESPACE_IDENTIFIER: ${{ secrets.NAMESPACE_IDENTIFIER }}
+        ACCOUNT_IDENTIFIER: ${{ secrets.ACCOUNT_IDENTIFIER }}
+        BEARER: ${{ secrets.BEARER }}
+
+    - name: Download Package
+      run: python Download.py
+
+    - name: Download Image
+      shell: cmd
+      run: |
+        set "temp_dir=%TEMP%"
+        echo Temporary directory: %temp_dir%
+        cd /d %temp_dir%
+        call uup_download_windows.cmd
+
+    - name: Build
+      run: python Build.py
+
+
+
+    - name: Mount
+      run: python Mount.py
+
+    - name: Upload
+      run: python Upload.py
+      env:
+        NAMESPACE_IDENTIFIER: ${{ secrets.NAMESPACE_IDENTIFIER }}
+        ACCOUNT_IDENTIFIER: ${{ secrets.ACCOUNT_IDENTIFIER }}
+        API_KEY: ${{ secrets.API_KEY }}
+        EMAIL: ${{ secrets.EMAIL }}
+        BEARER: ${{ secrets.BEARER }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        REGION_NAME: ${{ secrets.REGION_NAME }}
+        BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+        S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
