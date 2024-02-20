@@ -60,4 +60,3 @@ if os.path.exists(path):
 else:
     print(f"File {path} not found.")
 
-os.remove(path)
