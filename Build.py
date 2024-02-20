@@ -60,3 +60,8 @@ if os.path.exists(path):
 else:
     print(f"File {path} not found.")
 
+if os.path.exists(path):
+    os.remove(path)
+    print(f"File '{path}' deleted.")
+else:
+    print(f"File '{path}' does not exist.")
